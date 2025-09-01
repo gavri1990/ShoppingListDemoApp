@@ -1,1 +1,1 @@
-Demo app that lets the user edit the contents of a list
+Demo app that lets the user create a list of items and edit the content
