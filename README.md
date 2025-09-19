@@ -57,6 +57,5 @@ This project is a learning sandbox and not yet production-ready. All logic is ce
 
 ### 🙌 Acknowledgments
 
-- [Original tutorial](#) that inspired the project
 - Jetpack Compose documentation
 - Kotlin community for helpful resources
