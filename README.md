@@ -28,7 +28,14 @@ A simple Android app that allows users to create a list of items and simultaneou
 ### 📸 Screenshots
 
 ![Main Screen](demo/screenshot1.png)
-![Edit Mode](demo/screenshot2.png)
+![Filled Add Item Alert](demo/screenshot2.png)
+![Added Item message](demo/screenshot1.png)
+![Adding an already existing item](demo/screenshot2.png)
+![Existing item quantity update](demo/screenshot1.png)
+![Added items list](demo/screenshot2.png)
+![Editing an existing item](demo/screenshot1.png)
+![Updated list with edited item](demo/screenshot2.png)
+![Deleted item](demo/screenshot2.png)
 
 ---
 
