@@ -1,9 +1,9 @@
 package com.example.shoppinglist.ui.theme.home
 
-import android.graphics.drawable.Icon
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,9 +15,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
@@ -29,14 +31,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,9 +47,9 @@ import com.example.shoppinglist.ui.theme.shared.CustomCentralButton
 @Composable
 fun ShoppingListView(modifier: Modifier = Modifier){
     val CURRENT_CONTEXT = LocalContext.current
-    val shopListItems = remember { mutableStateListOf<ShoppingListItem>() }
-    //[ALTERNATIVE] var shopListItems by remember {mutableStateOf(listOf<ShoppingListItem>())}
-    var shouldDialogBeDisplayed by remember { mutableStateOf(false) }
+    var shopListItems by remember {mutableStateOf(listOf<ShoppingListItem>())}
+    //[ALTERNATIVE] val shopListItems = remember { mutableStateListOf<ShoppingListItem>() }
+    var shouldAlertDBeDisplayed by remember { mutableStateOf(false) }
     var alertDItemName by remember { mutableStateOf("")}
     var alertDItemQty by remember { mutableIntStateOf(0)}
 
@@ -62,24 +62,46 @@ fun ShoppingListView(modifier: Modifier = Modifier){
             Box{
                 CustomCentralButton(
                     textP = "Add items",
-                    onClickP = {shouldDialogBeDisplayed = true},
+                    onClickP = {shouldAlertDBeDisplayed = true},
                     modifierP = Modifier.safeDrawingPadding())
             }
         }
-
         Spacer(modifier = Modifier.width(16.dp))
-
         Box{
             LazyColumn (modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)) {
                 items(items = shopListItems){
-                    ShoppingListItemView(it, {}, {})
+                    listItem -> //if left as 'it' without that line, it shadows the implicit params of the inner lambda
+                    if(listItem.isCurrentlyEdited){
+                        ShoppingListItemEditor(itemP = listItem, onEditComplete = {
+                            editedItemName, editedItemQuantity ->
+                            shopListItems = shopListItems.map { it.copy(isCurrentlyEdited = false) }
+                            val editedItem = shopListItems.find { it.id == listItem.id }
+                            editedItem?.let{
+                                it.name = editedItemName
+                                it.quantity = editedItemQuantity
+                            }
+                        })
+                    }
+                    else{
+                        ShoppingListItemView(itemP = listItem, onEditIconClickP = {
+                            shopListItems = shopListItems.map{ it.copy(isCurrentlyEdited = (it.id == listItem.id))}
+                        }, onDeleteIconClickP = {
+                            shopListItems = shopListItems.filter{ it.id != listItem.id }
+                            Toast.makeText(
+                                CURRENT_CONTEXT,
+                                "${listItem.name} deleted from the list",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                        })
+                    }
                 }
             }
-            if(shouldDialogBeDisplayed)
+            if(shouldAlertDBeDisplayed){
                 AlertDialog(
-                    onDismissRequest = { shouldDialogBeDisplayed = false },
+                    onDismissRequest = { shouldAlertDBeDisplayed = false },
                     confirmButton = {
                         Row(modifier = Modifier.fillMaxWidth().padding(8.dp),
                             horizontalArrangement = Arrangement.SpaceBetween) {
@@ -100,31 +122,35 @@ fun ShoppingListView(modifier: Modifier = Modifier){
                                         ).show()
                                     } else {
                                         var alreadyExistingItem = false
-                                        shopListItems.forEach{
-                                            if(it.name == alertDItemName){
-                                                it.quantity += alertDItemQty
+                                        shopListItems = shopListItems.map{
+                                            item ->
+                                            if(item.name == alertDItemName){
                                                 alreadyExistingItem = true
                                                 Toast.makeText(
                                                     CURRENT_CONTEXT,
-                                                    "${it.quantity} more ${it.name} added!",
+                                                    "$alertDItemQty more ${item.name} added!",
                                                     Toast.LENGTH_SHORT
                                                 ).show()
+                                                val addedQtyTemp = alertDItemQty
                                                 alertDItemName = ""
                                                 alertDItemQty = 0
+                                                item.copy(quantity = item.quantity + addedQtyTemp) //the last line inside the if statement returns a ShoppinListItem object
                                             }
+                                            else
+                                                item
                                         }
                                         if(!alreadyExistingItem){
-                                            shopListItems.add(
-                                                ShoppingListItem(
-                                                    id = (shopListItems.maxOfOrNull { it.id } ?: 0) + 1,
-                                                    name = alertDItemName,
-                                                    quantity = alertDItemQty))
+                                            shopListItems = shopListItems + ShoppingListItem(
+                                            id = (shopListItems.maxOfOrNull { it.id } ?: 0) + 1,
+                                            name = alertDItemName,
+                                            quantity = alertDItemQty)
                                             Log.i("Item addition", "New Item added to List")
                                             //[ALTERNATIVE]
-                                            //shopListItems = shopListItems + ShoppingListItem(
-                                                //id = (shopListItems.maxOfOrNull { it.id } ?: 0) + 1,
-                                                //name = alertDItemName,
-                                                //quantity = alertDItemQty))
+//                                            shopListItems.add(
+//                                                ShoppingListItem(
+//                                                    id = (shopListItems.maxOfOrNull { it.id } ?: 0) + 1,
+//                                                    name = alertDItemName,
+//                                                    quantity = alertDItemQty))
                                             Toast.makeText(
                                                 CURRENT_CONTEXT,
                                                 "$alertDItemName with a quantity of $alertDItemQty added to the shopping list",
@@ -136,10 +162,9 @@ fun ShoppingListView(modifier: Modifier = Modifier){
                                     }
                                 },
                                 shapeP = RectangleShape)
-
                             CustomAlertButton(
                                 textP = "Cancel",
-                                onClickP = { shouldDialogBeDisplayed = false },
+                                onClickP = { shouldAlertDBeDisplayed = false },
                                 shapeP = RectangleShape)
                         }
                     },
@@ -156,14 +181,16 @@ fun ShoppingListView(modifier: Modifier = Modifier){
 
                         OutlinedTextField(
                             value = alertDItemQty.toString(),
-                            onValueChange = { alertDItemQty = it.toIntOrNull() ?: 0 },
+                            onValueChange = { alertDItemQty = it.toIntOrNull() ?: 1 },
                             singleLine = true,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(all = 8.dp))
                     } }
                 )
+            }
         }
+
     }
 }
 
@@ -192,6 +219,45 @@ fun ShoppingListItemView(
             }
         }
     }
+}
+
+@Composable
+fun ShoppingListItemEditor(
+    itemP: ShoppingListItem,
+    onEditComplete: (String, Int) -> Unit){
+    var editedName by remember { mutableStateOf(itemP.name) }
+    var editedQuantity by remember { mutableIntStateOf(itemP.quantity) }
+    var isCurrentlyEdited by remember { mutableStateOf(itemP.isCurrentlyEdited) }
+
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .background(Color.White)
+        .padding(8.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly){
+            Column {
+                BasicTextField(
+                    value = editedName,
+                    onValueChange = {editedName = it},
+                    singleLine = true,
+                    modifier = Modifier.wrapContentSize().padding(8.dp)
+                )
+
+                BasicTextField(
+                    value = editedQuantity.toString(),
+                    onValueChange = {editedQuantity = it.toIntOrNull() ?: 1},
+                    singleLine = true,
+                    modifier = Modifier.wrapContentSize().padding(8.dp)
+                )
+            }
+
+            CustomCentralButton(
+                textP = "Save",
+                onClickP = {
+                    isCurrentlyEdited = false
+                    onEditComplete(editedName, editedQuantity)
+                })
+
+        }
 }
 
 

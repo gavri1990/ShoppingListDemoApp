@@ -7,11 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.example.shoppinglist.ui.theme.ShoppingListTheme
-import com.example.shoppinglist.ui.theme.home.ShoppingList
+import com.example.shoppinglist.ui.theme.home.ShoppingListView
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,10 +20,9 @@ class MainActivity : ComponentActivity() {
             ShoppingListTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ShoppingList(modifier = Modifier
+                    ShoppingListView(modifier = Modifier
                         .fillMaxSize()
-                        .padding(innerPadding)
-                        .statusBarsPadding())
+                        .padding(innerPadding))
                 }
             }
         }
