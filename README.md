@@ -36,6 +36,8 @@ A simple Android app that allows users to create a list of items and simultaneou
 ![Editing an existing item](demoImages/screenshot7.png)
 ![Updated list with edited item](demoImages/screenshot8.png)
 ![Deleted item](demoImages/screenshot9.png)
+![Main Screen](demo/screenshot1.png)
+![Edit Mode](demo/screenshot2.png)
 
 ---
 
