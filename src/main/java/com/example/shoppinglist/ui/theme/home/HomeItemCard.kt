@@ -88,7 +88,7 @@ fun ShoppingListView(modifier: Modifier = Modifier){
                         ShoppingListItemView(itemP = listItem, onEditIconClickP = {
                             shopListItems = shopListItems.map{ it.copy(isCurrentlyEdited = (it.id == listItem.id))}
                         }, onDeleteIconClickP = {
-                            shopListItems = shopListItems.filter{ it.id != listItem.id }
+                            shopListItems = shopListItems - listItem
                             Toast.makeText(
                                 CURRENT_CONTEXT,
                                 "${listItem.name} deleted from the list",
