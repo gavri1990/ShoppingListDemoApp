@@ -36,8 +36,8 @@ A simple Android app that allows users to create a list of items and simultaneou
   <img src="demoImages/screenshot2.png" alt="Filled Add Item Alert" width="250"/>
 </figure>
 <figure>
-  <figcaption><strong>Added Item message</strong></figcaption>
-  <img src="demoImages/screenshot3.png" alt="Added Item message" width="250"/>
+  <figcaption><strong>Added item message</strong></figcaption>
+  <img src="demoImages/screenshot3.png" alt="Added item message" width="250"/>
 </figure>
 <figure>
   <figcaption><strong>Adding an already existing item</strong></figcaption>
@@ -48,8 +48,8 @@ A simple Android app that allows users to create a list of items and simultaneou
   <img src="demoImages/screenshot5.png" alt="Existing item quantity update" width="250"/>
 </figure>
 <figure>
-  <figcaption><strong>Added items list</strong></figcaption>
-  <img src="demoImages/screenshot6.png" alt="Added items list" width="250"/>
+  <figcaption><strong>Items list</strong></figcaption>
+  <img src="demoImages/screenshot6.png" alt="Items list" width="250"/>
 </figure>
 <figure>
   <figcaption><strong>Editing an existing item</strong></figcaption>
@@ -60,8 +60,8 @@ A simple Android app that allows users to create a list of items and simultaneou
   <img src="demoImages/screenshot8.png" alt="Updated list with edited item" width="250"/>
 </figure>
 <figure>
-  <figcaption><strong>Deleted item</strong></figcaption>
-  <img src="demoImages/screenshot9.png" alt="Deleted item" width="250"/>
+  <figcaption><strong>Deleting an item</strong></figcaption>
+  <img src="demoImages/screenshot9.png" alt="Deleting an item" width="250"/>
 </figure>
 
 ---
