@@ -27,15 +27,42 @@ A simple Android app that allows users to create a list of items and simultaneou
 
 ### 📸 Screenshots
 
-![Main Screen](demoImages/screenshot1.png)
-![Filled Add Item Alert](demoImages/screenshot2.png)
-![Added Item message](demoImages/screenshot3.png)
-![Adding an already existing item](demoImages/screenshot4.png)
-![Existing item quantity update](demoImages/screenshot5.png)
-![Added items list](demoImages/screenshot6.png)
-![Editing an existing item](demoImages/screenshot7.png)
-![Updated list with edited item](demoImages/screenshot8.png)
-![Deleted item](demoImages/screenshot9.png)
+<figure>
+  <figcaption><strong>Main Screen</strong></figcaption>
+  <img src="demoImages/screenshot1.png" alt="Main Screen" width="250"/>
+</figure>
+<figure>
+  <figcaption><strong>Filled Add Item Alert</strong></figcaption>
+  <img src="demoImages/screenshot2.png" alt="Filled Add Item Alert" width="250"/>
+</figure>
+<figure>
+  <figcaption><strong>Added item message</strong></figcaption>
+  <img src="demoImages/screenshot3.png" alt="Added item message" width="250"/>
+</figure>
+<figure>
+  <figcaption><strong>Adding an already existing item</strong></figcaption>
+  <img src="demoImages/screenshot4.png" alt="Adding an already existing item" width="250"/>
+</figure>
+<figure>
+  <figcaption><strong>Existing item quantity update</strong></figcaption>
+  <img src="demoImages/screenshot5.png" alt="Existing item quantity update" width="250"/>
+</figure>
+<figure>
+  <figcaption><strong>Items list</strong></figcaption>
+  <img src="demoImages/screenshot6.png" alt="Items list" width="250"/>
+</figure>
+<figure>
+  <figcaption><strong>Editing an existing item</strong></figcaption>
+  <img src="demoImages/screenshot7.png" alt="Editing an existing item" width="250"/>
+</figure>
+<figure>
+  <figcaption><strong>Updated list with edited item</strong></figcaption>
+  <img src="demoImages/screenshot8.png" alt="Updated list with edited item" width="250"/>
+</figure>
+<figure>
+  <figcaption><strong>Deleting an item</strong></figcaption>
+  <img src="demoImages/screenshot9.png" alt="Deleting an item" width="250"/>
+</figure>
 
 ---
 
