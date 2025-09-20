@@ -28,12 +28,12 @@ A simple Android app that allows users to create a list of items and simultaneou
 ### 📸 Screenshots
 
 <figure>
-  <img src="demoImages/screenshot1.png" alt="Main Screen" width="250"/>
   <figcaption><strong>Main Screen</strong></figcaption>
+  <img src="demoImages/screenshot1.png" alt="Main Screen" width="250"/>
 </figure>
 <figure>
-  <img src="demoImages/screenshot2.png" alt="Filled Add Item Alert" width="250"/>
   <figcaption><strong>Filled Add Item Alert</strong></figcaption>
+  <img src="demoImages/screenshot2.png" alt="Filled Add Item Alert" width="250"/>
 </figure>
 <figure>
   <img src="demoImages/screenshot3.png" alt="Added Item message" width="250"/>
