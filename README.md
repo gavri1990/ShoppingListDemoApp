@@ -28,7 +28,7 @@ A simple Android app that allows users to create a list of items and simultaneou
 ### 📸 Screenshots
 
 <figure>
-  <img src="demoImages/screenshot1.png" alt="Main Screen" width="300"/>
+  <img src="demoImages/screenshot1.png" alt="Main Screen" width="250"/>
   <figcaption><strong>Main Screen</strong></figcaption>
 </figure>
 
