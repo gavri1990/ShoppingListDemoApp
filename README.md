@@ -27,7 +27,7 @@ A simple Android app that allows users to create a list of items and simultaneou
 
 ### 📸 Screenshots
 
-<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
   <div style="width: 200px; text-align: center;">
     <div><strong>Main Screen</strong></div>
     <img src="demoImages/screenshot1.png" alt="Main Screen" width="200"/>
@@ -65,6 +65,7 @@ A simple Android app that allows users to create a list of items and simultaneou
     <img src="demoImages/screenshot9.png" alt="Deleting an item" width="200"/>
   </div>
 </div>
+
 ---
 
 ### 📦 Installation
