@@ -27,6 +27,11 @@ A simple Android app that allows users to create a list of items and simultaneou
 
 ### 📸 Screenshots
 
+<figure>
+  <img src="demoImages/screenshot1.png" alt="Main Screen" width="300"/>
+  <figcaption><strong>Main Screen</strong></figcaption>
+</figure>
+
 ![Main Screen](demoImages/screenshot1.png)
 ![Filled Add Item Alert](demoImages/screenshot2.png)
 ![Added Item message](demoImages/screenshot3.png)
