@@ -31,16 +31,38 @@ A simple Android app that allows users to create a list of items and simultaneou
   <img src="demoImages/screenshot1.png" alt="Main Screen" width="250"/>
   <figcaption><strong>Main Screen</strong></figcaption>
 </figure>
-
-![Main Screen](demoImages/screenshot1.png)
-![Filled Add Item Alert](demoImages/screenshot2.png)
-![Added Item message](demoImages/screenshot3.png)
-![Adding an already existing item](demoImages/screenshot4.png)
-![Existing item quantity update](demoImages/screenshot5.png)
-![Added items list](demoImages/screenshot6.png)
-![Editing an existing item](demoImages/screenshot7.png)
-![Updated list with edited item](demoImages/screenshot8.png)
-![Deleted item](demoImages/screenshot9.png)
+<figure>
+  <img src="demoImages/screenshot2.png" alt="Filled Add Item Alert" width="250"/>
+  <figcaption><strong>Filled Add Item Alert</strong></figcaption>
+</figure>
+<figure>
+  <img src="demoImages/screenshot3.png" alt="Added Item message" width="250"/>
+  <figcaption><strong>Added Item message</strong></figcaption>
+</figure>
+<figure>
+  <img src="demoImages/screenshot4.png" alt="Adding an already existing item" width="250"/>
+  <figcaption><strong>Adding an already existing item</strong></figcaption>
+</figure>
+<figure>
+  <img src="demoImages/screenshot5.png" alt="Existing item quantity update" width="250"/>
+  <figcaption><strong>Existing item quantity update</strong></figcaption>
+</figure>
+<figure>
+  <img src="demoImages/screenshot6.png" alt="Added items list" width="250"/>
+  <figcaption><strong>Added items list</strong></figcaption>
+</figure>
+<figure>
+  <img src="demoImages/screenshot7.png" alt="Editing an existing item" width="250"/>
+  <figcaption><strong>Editing an existing item</strong></figcaption>
+</figure>
+<figure>
+  <img src="demoImages/screenshot8.png" alt="Updated list with edited item" width="250"/>
+  <figcaption><strong>Updated list with edited item</strong></figcaption>
+</figure>
+<figure>
+  <img src="demoImages/screenshot9.png" alt="Deleted item" width="250"/>
+  <figcaption><strong>Deleted item</strong></figcaption>
+</figure>
 
 ---
 
