@@ -27,42 +27,44 @@ A simple Android app that allows users to create a list of items and simultaneou
 
 ### 📸 Screenshots
 
-<figure>
-  <figcaption><strong>Main Screen</strong></figcaption>
-  <img src="demoImages/screenshot1.png" alt="Main Screen" width="250"/>
-</figure>
-<figure>
-  <figcaption><strong>Filled Add Item Alert</strong></figcaption>
-  <img src="demoImages/screenshot2.png" alt="Filled Add Item Alert" width="250"/>
-</figure>
-<figure>
-  <figcaption><strong>Added item message</strong></figcaption>
-  <img src="demoImages/screenshot3.png" alt="Added item message" width="250"/>
-</figure>
-<figure>
-  <figcaption><strong>Adding an already existing item</strong></figcaption>
-  <img src="demoImages/screenshot4.png" alt="Adding an already existing item" width="250"/>
-</figure>
-<figure>
-  <figcaption><strong>Existing item quantity update</strong></figcaption>
-  <img src="demoImages/screenshot5.png" alt="Existing item quantity update" width="250"/>
-</figure>
-<figure>
-  <figcaption><strong>Items list</strong></figcaption>
-  <img src="demoImages/screenshot6.png" alt="Items list" width="250"/>
-</figure>
-<figure>
-  <figcaption><strong>Editing an existing item</strong></figcaption>
-  <img src="demoImages/screenshot7.png" alt="Editing an existing item" width="250"/>
-</figure>
-<figure>
-  <figcaption><strong>Updated list with edited item</strong></figcaption>
-  <img src="demoImages/screenshot8.png" alt="Updated list with edited item" width="250"/>
-</figure>
-<figure>
-  <figcaption><strong>Deleting an item</strong></figcaption>
-  <img src="demoImages/screenshot9.png" alt="Deleting an item" width="250"/>
-</figure>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+  <figure style="width: 200px; text-align: center;">
+    <img src="demoImages/screenshot1.png" alt="Main Screen" width="200"/>
+    <figcaption><strong>Main Screen</strong></figcaption>
+  </figure>
+  <figure style="width: 200px; text-align: center;">
+    <img src="demoImages/screenshot2.png" alt="Filled Add Item Alert" width="200"/>
+    <figcaption><strong>Filled Add Item Alert</strong></figcaption>
+  </figure>
+  <figure style="width: 200px; text-align: center;">
+    <img src="demoImages/screenshot3.png" alt="Added item message" width="200"/>
+    <figcaption><strong>Added item message</strong></figcaption>
+  </figure>
+  <figure style="width: 200px; text-align: center;">
+    <img src="demoImages/screenshot4.png" alt="Adding an already existing item" width="200"/>
+    <figcaption><strong>Adding an already existing item</strong></figcaption>
+  </figure>
+  <figure style="width: 200px; text-align: center;">
+    <img src="demoImages/screenshot5.png" alt="Existing item quantity update" width="200"/>
+    <figcaption><strong>Existing item quantity update</strong></figcaption>
+  </figure>
+  <figure style="width: 200px; text-align: center;">
+    <img src="demoImages/screenshot6.png" alt="Items list" width="200"/>
+    <figcaption><strong>Items list</strong></figcaption>
+  </figure>
+  <figure style="width: 200px; text-align: center;">
+    <img src="demoImages/screenshot7.png" alt="Editing an existing item" width="200"/>
+    <figcaption><strong>Editing an existing item</strong></figcaption>
+  </figure>
+  <figure style="width: 200px; text-align: center;">
+    <img src="demoImages/screenshot8.png" alt="Updated list with edited item" width="200"/>
+    <figcaption><strong>Updated list with edited item</strong></figcaption>
+  </figure>
+  <figure style="width: 200px; text-align: center;">
+    <img src="demoImages/screenshot9.png" alt="Deleting an item" width="200"/>
+    <figcaption><strong>Deleting an item</strong></figcaption>
+  </figure>
+</div>
 
 ---
 
