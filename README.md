@@ -43,16 +43,6 @@ A simple Android app that allows users to create a list of items and simultaneou
 </div>
 
 <div style="text-align: center; margin-bottom: 20px;">
-  <div><strong>Adding an already existing item</strong></div>
-  <img src="demoImages/screenshot4.png" alt="Adding an already existing item" width="200"/>
-</div>
-
-<div style="text-align: center; margin-bottom: 20px;">
-  <div><strong>Existing item quantity update</strong></div>
-  <img src="demoImages/screenshot5.png" alt="Existing item quantity update" width="200"/>
-</div>
-
-<div style="text-align: center; margin-bottom: 20px;">
   <div><strong>Items list</strong></div>
   <img src="demoImages/screenshot6.png" alt="Items list" width="200"/>
 </div>
