@@ -1,5 +1,6 @@
 package com.example.shoppinglist.ui.theme.home
 
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
@@ -30,7 +31,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -51,7 +51,7 @@ fun ShoppingListView(modifier: Modifier = Modifier){
     //[ALTERNATIVE] val shopListItems = remember { mutableStateListOf<ShoppingListItem>() }
     var shouldAlertDBeDisplayed by remember { mutableStateOf(false) }
     var alertDItemName by remember { mutableStateOf("")}
-    var alertDItemQty by remember { mutableIntStateOf(0)}
+    var alertDItemQty by remember { mutableStateOf("")}
 
     Column(
         modifier = Modifier.fillMaxSize()) {
@@ -74,7 +74,10 @@ fun ShoppingListView(modifier: Modifier = Modifier){
                 items(items = shopListItems){
                     listItem -> //if left as 'it' without that line, it shadows the implicit params of the inner lambda
                     if(listItem.isCurrentlyEdited){
-                        ShoppingListItemEditor(itemP = listItem, onEditComplete = {
+                        ShoppingListItemEditor(
+                            currContextP = CURRENT_CONTEXT,
+                            itemP = listItem,
+                            onEditComplete = {
                             editedItemName, editedItemQuantity ->
                             shopListItems = shopListItems.map { it.copy(isCurrentlyEdited = false) }
                             val editedItem = shopListItems.find { it.id == listItem.id }
@@ -114,30 +117,27 @@ fun ShoppingListView(modifier: Modifier = Modifier){
                                             "Fill the item's name",
                                             Toast.LENGTH_SHORT
                                         ).show()
-                                    } else if (alertDItemQty == 0) {
+                                    }
+                                    else if(alertDItemQty.isBlank()){
                                         Toast.makeText(
                                             CURRENT_CONTEXT,
-                                            "Quantity must be 1 or more",
+                                            "Fill the item's quantity",
                                             Toast.LENGTH_SHORT
                                         ).show()
-                                    } else {
+                                    }
+                                    else {
                                         var alreadyExistingItem = false
-                                        shopListItems = shopListItems.map{
-                                            item ->
-                                            if(item.name == alertDItemName){
+                                        shopListItems.forEach(){
+                                            if(it.name == alertDItemName){
                                                 alreadyExistingItem = true
                                                 Toast.makeText(
                                                     CURRENT_CONTEXT,
-                                                    "$alertDItemQty more ${item.name} added!",
+                                                    "$alertDItemName already on the list, just edit the quantity",
                                                     Toast.LENGTH_SHORT
                                                 ).show()
-                                                val addedQtyTemp = alertDItemQty
                                                 alertDItemName = ""
-                                                alertDItemQty = 0
-                                                item.copy(quantity = item.quantity + addedQtyTemp) //the last line inside the if statement returns a ShoppinListItem object
+                                                alertDItemQty = ""
                                             }
-                                            else
-                                                item
                                         }
                                         if(!alreadyExistingItem){
                                             shopListItems = shopListItems + ShoppingListItem(
@@ -157,7 +157,7 @@ fun ShoppingListView(modifier: Modifier = Modifier){
                                                 Toast.LENGTH_LONG
                                             ).show()
                                             alertDItemName = ""
-                                            alertDItemQty = 0
+                                            alertDItemQty = ""
                                         }
                                     }
                                 },
@@ -180,8 +180,11 @@ fun ShoppingListView(modifier: Modifier = Modifier){
                             label = { Text("Name") })
 
                         OutlinedTextField(
-                            value = alertDItemQty.toString(),
-                            onValueChange = { alertDItemQty = it.toIntOrNull() ?: 1 },
+                            value = alertDItemQty,
+                            onValueChange = {
+                                //characters or 0 not allowed. A completely empty value (user presses backspace key) will also give 0, so again alertDItemQty = ""
+                                alertDItemQty = if((it.toIntOrNull() ?: 0) == 0) "" else it
+                            },
                             singleLine = true,
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -224,10 +227,11 @@ fun ShoppingListItemView(
 
 @Composable
 fun ShoppingListItemEditor(
+    currContextP: Context,
     itemP: ShoppingListItem,
-    onEditComplete: (String, Int) -> Unit){
+    onEditComplete: (String, String) -> Unit){
     var editedName by remember { mutableStateOf(itemP.name) }
-    var editedQuantity by remember { mutableIntStateOf(itemP.quantity) }
+    var editedQuantity by remember { mutableStateOf(itemP.quantity) }
     var isCurrentlyEdited by remember { mutableStateOf(itemP.isCurrentlyEdited) }
 
     Row(modifier = Modifier
@@ -244,8 +248,9 @@ fun ShoppingListItemEditor(
                 )
 
                 BasicTextField(
-                    value = editedQuantity.toString(),
-                    onValueChange = {editedQuantity = it.toIntOrNull() ?: 1},
+                    value = editedQuantity,
+                    onValueChange = {
+                        editedQuantity = if((it.toIntOrNull() ?: 0) == 0) "" else it},
                     singleLine = true,
                     modifier = Modifier.wrapContentSize().padding(8.dp)
                 )
@@ -254,8 +259,24 @@ fun ShoppingListItemEditor(
             CustomCentralButton(
                 textP = "Save",
                 onClickP = {
-                    isCurrentlyEdited = false
-                    onEditComplete(editedName, editedQuantity)
+                    if(editedName.isBlank()) {
+                        Toast.makeText(
+                            currContextP,
+                            "Fill the item's name",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    else if(editedQuantity.isBlank()) {
+                        Toast.makeText(
+                            currContextP,
+                            "Fill the item's quantity",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    else{
+                        isCurrentlyEdited = false
+                        onEditComplete(editedName, editedQuantity)
+                    }
                 })
 
         }
