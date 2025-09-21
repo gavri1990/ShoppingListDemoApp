@@ -44,22 +44,22 @@ A simple Android app that allows users to create a list of items and simultaneou
 
 <div style="text-align: center; margin-bottom: 20px;">
   <div><strong>Items list</strong></div>
-  <img src="demoImages/screenshot6.png" alt="Items list" width="200"/>
+  <img src="demoImages/screenshot4.png" alt="Items list" width="200"/>
 </div>
 
 <div style="text-align: center; margin-bottom: 20px;">
   <div><strong>Editing an existing item</strong></div>
-  <img src="demoImages/screenshot7.png" alt="Editing an existing item" width="200"/>
+  <img src="demoImages/screenshot5.png" alt="Editing an existing item" width="200"/>
 </div>
 
 <div style="text-align: center; margin-bottom: 20px;">
   <div><strong>Updated list with edited item</strong></div>
-  <img src="demoImages/screenshot8.png" alt="Updated list with edited item" width="200"/>
+  <img src="demoImages/screenshot6.png" alt="Updated list with edited item" width="200"/>
 </div>
 
 <div style="text-align: center; margin-bottom: 20px;">
   <div><strong>Deleting an item</strong></div>
-  <img src="demoImages/screenshot9.png" alt="Deleting an item" width="200"/>
+  <img src="demoImages/screenshot7.png" alt="Deleting an item" width="200"/>
 </div>
 
 ---
