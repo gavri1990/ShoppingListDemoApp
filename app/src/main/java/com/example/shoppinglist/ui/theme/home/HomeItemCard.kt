@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.width
@@ -54,7 +56,12 @@ fun ShoppingListView(modifier: Modifier = Modifier){
     var alertDItemQty by remember { mutableStateOf("")}
 
     Column(
-        modifier = Modifier.fillMaxSize()) {
+        modifier = Modifier
+            .fillMaxSize()
+            .imePadding()
+            .safeDrawingPadding()
+            .navigationBarsPadding()
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
@@ -62,14 +69,12 @@ fun ShoppingListView(modifier: Modifier = Modifier){
             Box{
                 CustomCentralButton(
                     textP = "Add items",
-                    onClickP = {shouldAlertDBeDisplayed = true},
-                    modifierP = Modifier.safeDrawingPadding())
+                    onClickP = {shouldAlertDBeDisplayed = true})
             }
         }
         Spacer(modifier = Modifier.width(16.dp))
         Box{
             LazyColumn (modifier = Modifier
-                .fillMaxSize()
                 .padding(16.dp)) {
                 items(items = shopListItems){
                     listItem -> //if left as 'it' without that line, it shadows the implicit params of the inner lambda
