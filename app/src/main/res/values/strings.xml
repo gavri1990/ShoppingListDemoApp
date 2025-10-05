@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ShoppingList</string>
+    <string name="btn_add_items">Add items</string>
+    <string name="dialog_btn_add_item">Add</string>
+    <string name="dialog_btn_close">Close</string>
+    <string name="dialog_lbl_name">Name</string>
+    <string name="dialog_lbl_name_empty">Fill the name!</string>
+    <string name="dialog_lbl_name_on_list">Already on the list!</string>
+    <string name="dialog_lbl_qty">Quantity</string>
+    <string name="dialog_lbl_qty_empty">Fill the quantity!</string>
 </resources>

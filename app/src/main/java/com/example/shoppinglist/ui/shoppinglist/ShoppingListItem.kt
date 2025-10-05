@@ -1,4 +1,4 @@
-package com.example.shoppinglist.ui.theme.home
+package com.example.shoppinglist.ui.shoppinglist
 
 data class ShoppingListItem(val id: Int,
                             var name: String,

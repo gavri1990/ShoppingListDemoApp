@@ -45,8 +45,8 @@ import com.example.shoppinglist.ui.theme.shared.CustomAlertButton
 import com.example.shoppinglist.ui.theme.shared.CustomCentralButton
 
 @Composable
-fun ShoppingListView(modifier: Modifier = Modifier){
-    val CURRENT_CONTEXT = LocalContext.current
+fun ShoppingListScreen(modifier: Modifier = Modifier){
+    val LocalContext.current = LocalContext.current
     var shopListItems by remember {mutableStateOf(listOf<ShoppingListItem>())}
     //[ALTERNATIVE] val shopListItems = remember { mutableStateListOf<ShoppingListItem>() }
     var shouldAlertDBeDisplayed by remember { mutableStateOf(false) }
@@ -90,7 +90,7 @@ fun ShoppingListView(modifier: Modifier = Modifier){
                         }, onDeleteIconClickP = {
                             shopListItems = shopListItems - listItem
                             Toast.makeText(
-                                CURRENT_CONTEXT,
+                                LocalContext.current,
                                 "${listItem.name} deleted from the list",
                                 Toast.LENGTH_SHORT
                             ).show()
@@ -110,13 +110,13 @@ fun ShoppingListView(modifier: Modifier = Modifier){
                                 onClickP = {
                                     if (alertDItemName.isBlank()) {
                                         Toast.makeText(
-                                            CURRENT_CONTEXT,
+                                            LocalContext.current,
                                             "Fill the item's name",
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     } else if (alertDItemQty == 0) {
                                         Toast.makeText(
-                                            CURRENT_CONTEXT,
+                                            LocalContext.current,
                                             "Quantity must be 1 or more",
                                             Toast.LENGTH_SHORT
                                         ).show()
@@ -127,7 +127,7 @@ fun ShoppingListView(modifier: Modifier = Modifier){
                                             if(item.name == alertDItemName){
                                                 alreadyExistingItem = true
                                                 Toast.makeText(
-                                                    CURRENT_CONTEXT,
+                                                    LocalContext.current,
                                                     "$alertDItemQty more ${item.name} added!",
                                                     Toast.LENGTH_SHORT
                                                 ).show()
@@ -152,7 +152,7 @@ fun ShoppingListView(modifier: Modifier = Modifier){
 //                                                    name = alertDItemName,
 //                                                    quantity = alertDItemQty))
                                             Toast.makeText(
-                                                CURRENT_CONTEXT,
+                                                LocalContext.current,
                                                 "$alertDItemName with a quantity of $alertDItemQty added to the shopping list",
                                                 Toast.LENGTH_LONG
                                             ).show()
@@ -263,8 +263,8 @@ fun ShoppingListItemEditor(
 
 @Preview(showBackground = true)
 @Composable
-fun ShoppingListViewPreview(){
+fun ShoppingListScreenPreview(){
     ShoppingListTheme {
-        ShoppingListView()
+        ShoppingListScreen()
     }
 }

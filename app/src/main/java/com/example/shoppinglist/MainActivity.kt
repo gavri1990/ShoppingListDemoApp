@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.example.shoppinglist.ui.theme.ShoppingListTheme
-import com.example.shoppinglist.ui.theme.home.ShoppingListView
+import com.example.shoppinglist.ui.shoppinglist.ShoppingListScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
             ShoppingListTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ShoppingListView(modifier = Modifier
+                    ShoppingListScreen(modifier = Modifier
                         .fillMaxSize()
                         .padding(innerPadding))
                 }
