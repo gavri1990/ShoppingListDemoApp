@@ -59,6 +59,35 @@ fun ShoppingListScreen(
     var shopListItems by remember {mutableStateOf(listOf<ShoppingListItem>())}
 
 
+//    @Composable
+//    fun ShoppingListItem(
+//        item: ShoppingItem,
+//        isEditing: Boolean,
+//        onEditToggle: () -> Unit,
+//        onItemChange: (ShoppingItem) -> Unit
+//    ) {
+//        if (isEditing) {
+//            ShoppingItemEditor(item, onItemChange = onItemChange, onDone = onEditToggle)
+//        } else {
+//            ShoppingItemDisplay(item, onEditClick = onEditToggle)
+//        }
+//    }
+//
+//    @Composable
+//    fun ShoppingList(items: List<ShoppingItem>) {
+//        LazyColumn {
+//            items(items) { item ->
+//                ShoppingListItem(
+//                    item = item,
+//                    isEditing = item.isEditing,
+//                    onEditToggle = { /* toggle logic */ },
+//                    onItemChange = { /* update logic */ }
+//                )
+//            }
+//        }
+//    }
+
+
     Column(
         modifier = modifier //innerPadding from Scaffold accounts for system insets automatically
     ) {
@@ -68,44 +97,44 @@ fun ShoppingListScreen(
         ) {
             CustomCentralButton(
                 text = stringResource(R.string.btn_add_items),
-                onClick = { shoppingListViewModel.updateDialogDisplayed(true) })
+                onClick = { shoppingListViewModel.newItemDialogController.updateDialogDisplayed(true) })
 
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Box{
-            LazyColumn (modifier = Modifier
-                .padding(16.dp)) {
-                items(items = shopListItems){
-                    listItem -> //if left as 'it' without that line, it shadows the implicit params of the inner lambda
-                    if(listItem.isCurrentlyEdited){
-                        ShoppingListItemEditor(
-                            currContextP = LocalContext.current,
-                            itemP = listItem,
-                            onEditComplete = {
-                            editedItemName, editedItemQuantity ->
-                            shopListItems = shopListItems.map { it.copy(isCurrentlyEdited = false) }
-                            val editedItem = shopListItems.find { it.id == listItem.id }
-                            editedItem?.let{
-                                it.name = editedItemName
-                                it.quantity = editedItemQuantity
-                            }
-                        })
-                    }
-                    else{
-                        ShoppingListItemView(itemP = listItem, onEditIconClickP = {
-                            shopListItems = shopListItems.map{ it.copy(isCurrentlyEdited = (it.id == listItem.id))}
-                        }, onDeleteIconClickP = {
-                            shopListItems = shopListItems - listItem
-//                            Toast.makeText(
-//                                LocalContext.current,
-//                                "${listItem.name} deleted from the list",
-//                                Toast.LENGTH_SHORT
-//                            ).show()
 
-                        })
-                    }
-                }
-            }
+        ShoppingList(
+            items = shoppingListUiState.shoppingListItemsState.shoppingListItems
+        )
+//                    listItem -> //if left as 'it' without that line, it shadows the implicit params of the inner lambda
+//                    if(listItem.isCurrentlyEdited){
+//                        ShoppingListItemEditor(
+//                            currContextP = LocalContext.current,
+//                            itemP = listItem,
+//                            onEditComplete = {
+//                            editedItemName, editedItemQuantity ->
+//                            shopListItems = shopListItems.map { it.copy(isCurrentlyEdited = false) }
+//                            val editedItem = shopListItems.find { it.id == listItem.id }
+//                            editedItem?.let{
+//                                it.name = editedItemName
+//                                it.quantity = editedItemQuantity
+//                            }
+//                        })
+//                    }
+//                    else{
+//                        ShoppingListItemView(itemP = listItem, onEditIconClickP = {
+//                            shopListItems = shopListItems.map{ it.copy(isCurrentlyEdited = (it.id == listItem.id))}
+//                        }, onDeleteIconClickP = {
+//                            shopListItems = shopListItems - listItem
+////                            Toast.makeText(
+////                                LocalContext.current,
+////                                "${listItem.name} deleted from the list",
+////                                Toast.LENGTH_SHORT
+////                            ).show()
+//
+//                        })
+//                    }
+//                }
+
 
 //                                        if(!alreadyExistingItem){
 //                                            shopListItems = shopListItems + ShoppingListItem(
@@ -124,54 +153,77 @@ fun ShoppingListScreen(
 //                                                "$alertDItemName with a quantity of $alertDItemQty added to the shopping list",
 //                                                Toast.LENGTH_LONG
 //                                            ).show()
-//                                            alertDItemName = ""
-//                                            alertDItemQty = ""
-//                                        }
-//                                    }
-//                                },
 
-//                        }
-//                    },
-            }
         }
-        if(shoppingListUiState.isDialogDisplayed){
+        if(shoppingListUiState.newItemDialogState.isDialogDisplayed){
             NewItemDialog(
-                itemName = shoppingListViewModel.dialogItemName,
-                itemQty = shoppingListViewModel.dialogItemQty,
-                isItemNameInputWrong = shoppingListUiState.isItemNameInputInvalid,
-                isItemQtyInputWrong = shoppingListUiState.isItemQtyInputInvalid,
-                isItemNameEmpty = shoppingListUiState.isItemNameEmpty,
-                isItemAlreadyOnTheList = shoppingListUiState.isItemAlreadyOnTheList,
-                isItemQtyEmpty = shoppingListUiState.isItemQtyEmpty,
-                onItemNameChanged = { shoppingListViewModel.updateDialogItemName(it) },
-                onItemQtyChanged = { shoppingListViewModel.updateDialogItemQty(it) },
-                onAddClick = {shoppingListViewModel.checkFilledValues()},
-                onCloseClick = { shoppingListViewModel.updateDialogDisplayed(false)},
-                onDismissRequest = { shoppingListViewModel.updateDialogDisplayed(false) }
+                dialogState = shoppingListUiState.newItemDialogState,
+                dialogController = shoppingListViewModel.newItemDialogController
             )
         }
+
     }
 //}
 
 
 @Composable
+fun ShoppingList(
+    modifier: Modifier = Modifier,
+    items: List<ShoppingListItem>,
+){
+    LazyColumn(
+        modifier = Modifier
+            .padding(16.dp)
+    ) {
+        items(items = items) { listItem -> //if left as 'it' without that line, it shadows the implicit params of the inner lambda
+            ShoppingListItem(listItem = listItem)
+        }
+    }
+}
+
+@Composable
+fun ShoppingListItem(
+    modifier: Modifier = Modifier,
+    listItem: ShoppingListItem
+){
+    if (listItem.isCurrentlyEdited) {
+        ShoppingListItemEditor(
+            currContext = LocalContext.current,
+            item = listItem)
+//            onEditComplete = { })
+////        editedItemName, editedItemQuantity ->
+////                shopListItems = shopListItems.map { it.copy(isCurrentlyEdited = false) }
+////                val editedItem = shopListItems.find { it.id == listItem.id }
+////                editedItem?.let {
+////                    it.name = editedItemName
+////                    it.quantity = editedItemQuantity
+////                }
+////            })
+      } else {
+         ShoppingListItemView(item = listItem, onEditIconClick = {}, onDeleteIconClick = {})
+////            shopListItems =
+////                shopListItems.map { it.copy(isCurrentlyEdited = (it.id == listItem.id)) }
+////        }, onDeleteIconClickP = {
+////            shopListItems = shopListItems - listItem
+//////                            Toast.makeText(
+//////                                LocalContext.current,
+//////                                "${listItem.name} deleted from the list",
+//////                                Toast.LENGTH_SHORT
+//////                            ).show()
+//
+////        })
+    }
+}
+
+
+@Composable
 fun NewItemDialog(
     modifier: Modifier = Modifier,
-    itemName: String,
-    itemQty: String,
-    isItemNameInputWrong: Boolean,
-    isItemQtyInputWrong: Boolean,
-    isItemNameEmpty: Boolean,
-    isItemAlreadyOnTheList: Boolean,
-    isItemQtyEmpty: Boolean,
-    onItemNameChanged: (String) -> Unit,
-    onItemQtyChanged: (String) -> Unit,
-    onAddClick : () -> Unit,
-    onCloseClick: () -> Unit,
-    onDismissRequest: () -> Unit,
+    dialogState : NewItemDialogState,
+    dialogController: NewItemDialogController
 ){
     Dialog(
-        onDismissRequest = onDismissRequest) {
+        onDismissRequest = { dialogController.updateDialogDisplayed(false) }) {
         Surface(
             modifier = Modifier
                 .wrapContentSize()  //making sure the Surface wraps its content unless explicitly overriden by params modifier
@@ -189,36 +241,36 @@ fun NewItemDialog(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 OutlinedTextField(
-                    value = itemName,
-                    onValueChange = onItemNameChanged,
+                    value = dialogController.dialogItemName,
+                    onValueChange = { dialogController.updateDialogItemName(it)},
                     singleLine = true,
                     modifier = Modifier
                         .fillMaxWidth(),
                     label = {
                         when{
-                            isItemNameEmpty -> Text(text = stringResource(R.string.dialog_lbl_name_empty))
-                            isItemAlreadyOnTheList -> Text(text = stringResource(R.string.dialog_lbl_name_on_list))
+                            dialogState.isItemNameEmpty -> Text(text = stringResource(R.string.dialog_lbl_name_empty))
+                            dialogState.isItemAlreadyOnTheList -> Text(text = stringResource(R.string.dialog_lbl_name_on_list))
                             else -> Text(text = stringResource(R.string.dialog_lbl_name))
                         }
                     },
-                    isError = isItemNameInputWrong,
+                    isError = dialogState.isItemNameInputInvalid,
                     keyboardOptions = KeyboardOptions.Default.copy(
                         imeAction = ImeAction.Done
                     )
                 )
                 OutlinedTextField(
-                    value = itemQty,
-                    onValueChange = onItemQtyChanged,
+                    value = dialogController.dialogItemQty,
+                    onValueChange = { dialogController.updateDialogItemQty(it)},
                     singleLine = true,
                     modifier = Modifier
                         .fillMaxWidth(),
                     label = {
                         when {
-                            isItemQtyEmpty -> Text(text = stringResource(R.string.dialog_lbl_qty_empty))
+                            dialogState.isItemQtyEmpty -> Text(text = stringResource(R.string.dialog_lbl_qty_empty))
                             else -> Text(text = stringResource(R.string.dialog_lbl_qty))
                         }
                     },
-                    isError = isItemQtyInputWrong,
+                    isError = dialogState.isItemQtyInputInvalid,
                     keyboardOptions = KeyboardOptions.Default.copy(
                         imeAction = ImeAction.Done
                     )
@@ -231,12 +283,12 @@ fun NewItemDialog(
                 ) {
                     CustomAlertButton(
                         text = stringResource(R.string.dialog_btn_add_item),
-                        onClick = onAddClick,
+                        onClick = { dialogController.checkFilledValues() },
                         shape = RectangleShape
                     )
                     CustomAlertButton(
                         text = stringResource(R.string.dialog_btn_close),
-                        onClick = onCloseClick,
+                        onClick = { dialogController.updateDialogDisplayed(false) },
                         shape = RectangleShape
                     )
                 }
@@ -247,9 +299,9 @@ fun NewItemDialog(
 
 @Composable
 fun ShoppingListItemView(
-    itemP: ShoppingListItem,
-    onEditIconClickP: () -> Unit,
-    onDeleteIconClickP: () -> Unit
+    item: ShoppingListItem,
+    onEditIconClick: () -> Unit,
+    onDeleteIconClick: () -> Unit
 ){
     Row(
         modifier = Modifier
@@ -260,13 +312,13 @@ fun ShoppingListItemView(
                 shape = RoundedCornerShape(20)),
         horizontalArrangement = Arrangement.SpaceBetween
     ){
-        Text(text = itemP.name, modifier = Modifier.padding(8.dp))
-        Text(text = "Qty: ${itemP.quantity}", modifier = Modifier.padding(8.dp))
+        Text(text = item.name, modifier = Modifier.padding(8.dp))
+        Text(text = "Qty: ${item.quantity}", modifier = Modifier.padding(8.dp))
         Row(modifier = Modifier.padding(8.dp)){
-            IconButton(onClick = onEditIconClickP)  {
+            IconButton(onClick = onEditIconClick)  {
                 Icon(imageVector = Icons.Default.Edit, contentDescription = "Edit")
             }
-            IconButton(onClick = onDeleteIconClickP)  {
+            IconButton(onClick = onDeleteIconClick)  {
                 Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete")
             }
         }
@@ -275,12 +327,13 @@ fun ShoppingListItemView(
 
 @Composable
 fun ShoppingListItemEditor(
-    currContextP: Context,
-    itemP: ShoppingListItem,
-    onEditComplete: (String, String) -> Unit){
-    var editedName by remember { mutableStateOf(itemP.name) }
-    var editedQuantity by remember { mutableStateOf(itemP.quantity) }
-    var isCurrentlyEdited by remember { mutableStateOf(itemP.isCurrentlyEdited) }
+    currContext: Context,
+    item: ShoppingListItem,
+//    onEditComplete: (String, String) -> Unit
+){
+    var editedName by remember { mutableStateOf(item.name) }
+    var editedQuantity by remember { mutableStateOf(item.quantity) }
+    var isCurrentlyEdited by remember { mutableStateOf(item.isCurrentlyEdited) }
 
     Row(modifier = Modifier
         .fillMaxWidth()
@@ -309,21 +362,21 @@ fun ShoppingListItemEditor(
                 onClick = {
                     if(editedName.isBlank()) {
                         Toast.makeText(
-                            currContextP,
+                            currContext,
                             "Fill the item's name",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                     else if(editedQuantity.isBlank()) {
                         Toast.makeText(
-                            currContextP,
+                            currContext,
                             "Fill the item's quantity",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                     else{
                         isCurrentlyEdited = false
-                        onEditComplete(editedName, editedQuantity)
+//                        onEditComplete(editedName, editedQuantity)
                     }
                 })
 

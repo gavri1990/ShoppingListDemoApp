@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.shoppinglist.ui.shoppinglist.NewItemDialogController
 import com.example.shoppinglist.ui.shoppinglist.ShoppingListUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,43 +15,12 @@ class ShoppingListViewModel: ViewModel() {
     private val _uiState = MutableStateFlow(ShoppingListUiState())
     val uiState: StateFlow<ShoppingListUiState> = _uiState.asStateFlow()
 
-    var dialogItemName by mutableStateOf("")
-        private set
+    val newItemDialogController = NewItemDialogController{transform ->
+        _uiState.update(transform)} //passing a lambda function that can be called by the controller(the controller passes the transform when it calls the function. It gets executed in the viewmodel)
 
-    var dialogItemQty by mutableStateOf("")
-        private set
+    //For NewItemDialog
 
-    fun updateDialogItemName(itemName: String){
-        dialogItemName = itemName
-    }
 
-    fun updateDialogItemQty(itemQty: String){
-        dialogItemQty = if((itemQty.toIntOrNull() ?: 0) == 0) "" else itemQty   //characters or 0 not allowed. A completely empty value (user presses backspace key) will also give 0, so again alertDItemQty = ""
-    }
-
-    fun updateDialogDisplayed(isDisplayed: Boolean){
-        _uiState.update { currentState ->
-            currentState.copy(isDialogDisplayed = isDisplayed)
-        }
-    }
-
-    fun checkFilledValues(){
-        val isNameInputInvalid = (dialogItemName.isBlank())
-        val isQtyInputInvalid = (dialogItemQty.isBlank())
-        _uiState.update { currentState ->
-            currentState.copy(
-                isItemNameInputInvalid = isNameInputInvalid,
-                isItemNameEmpty = dialogItemName.isBlank(),
-                isItemAlreadyOnTheList = false,
-                isItemQtyInputInvalid = isQtyInputInvalid,
-                isItemQtyEmpty = dialogItemQty.isBlank()
-            )
-        }
-        if(!isNameInputInvalid && !isQtyInputInvalid){
-            updateDialogItemName("")
-            updateDialogItemQty("")
-        }
-    }
 }
 
 
