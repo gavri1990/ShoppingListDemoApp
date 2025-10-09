@@ -14,7 +14,15 @@ data class NewItemDialogState(
     val isItemQtyEmpty: Boolean = false,
 )
 
-
 data class ShoppingListItemsState(
     val shoppingListItems: List<ShoppingListItem> = listOf()
+)
+
+
+data class itemEditorState(
+    val isItemNameInputInvalid: Boolean = false,
+    val isItemQtyInputInvalid: Boolean = false,
+    val isItemNameEmpty: Boolean = false,
+    val isItemAlreadyOnTheList: Boolean = false,
+    val isItemQtyEmpty: Boolean = false,
 )

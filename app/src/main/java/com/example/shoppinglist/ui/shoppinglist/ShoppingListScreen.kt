@@ -1,18 +1,16 @@
 package com.example.shoppinglist.ui.shoppinglist
 
-import android.content.Context
-import android.widget.Toast
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -20,14 +18,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -38,9 +39,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -50,43 +52,13 @@ import com.example.shoppinglist.R
 import com.example.shoppinglist.ui.theme.ShoppingListTheme
 import com.example.shoppinglist.viewmodel.ShoppingListViewModel
 
+
 @Composable
 fun ShoppingListScreen(
     modifier: Modifier = Modifier,
     shoppingListViewModel: ShoppingListViewModel = viewModel()
 ){
     val shoppingListUiState by shoppingListViewModel.uiState.collectAsState()
-    var shopListItems by remember {mutableStateOf(listOf<ShoppingListItem>())}
-
-
-//    @Composable
-//    fun ShoppingListItem(
-//        item: ShoppingItem,
-//        isEditing: Boolean,
-//        onEditToggle: () -> Unit,
-//        onItemChange: (ShoppingItem) -> Unit
-//    ) {
-//        if (isEditing) {
-//            ShoppingItemEditor(item, onItemChange = onItemChange, onDone = onEditToggle)
-//        } else {
-//            ShoppingItemDisplay(item, onEditClick = onEditToggle)
-//        }
-//    }
-//
-//    @Composable
-//    fun ShoppingList(items: List<ShoppingItem>) {
-//        LazyColumn {
-//            items(items) { item ->
-//                ShoppingListItem(
-//                    item = item,
-//                    isEditing = item.isEditing,
-//                    onEditToggle = { /* toggle logic */ },
-//                    onItemChange = { /* update logic */ }
-//                )
-//            }
-//        }
-//    }
-
 
     Column(
         modifier = modifier //innerPadding from Scaffold accounts for system insets automatically
@@ -103,115 +75,104 @@ fun ShoppingListScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         ShoppingList(
+            listItemViewController = shoppingListViewModel.listItemViewController,
             items = shoppingListUiState.shoppingListItemsState.shoppingListItems
         )
-//                    listItem -> //if left as 'it' without that line, it shadows the implicit params of the inner lambda
-//                    if(listItem.isCurrentlyEdited){
-//                        ShoppingListItemEditor(
-//                            currContextP = LocalContext.current,
-//                            itemP = listItem,
-//                            onEditComplete = {
-//                            editedItemName, editedItemQuantity ->
-//                            shopListItems = shopListItems.map { it.copy(isCurrentlyEdited = false) }
-//                            val editedItem = shopListItems.find { it.id == listItem.id }
-//                            editedItem?.let{
-//                                it.name = editedItemName
-//                                it.quantity = editedItemQuantity
-//                            }
-//                        })
-//                    }
-//                    else{
-//                        ShoppingListItemView(itemP = listItem, onEditIconClickP = {
-//                            shopListItems = shopListItems.map{ it.copy(isCurrentlyEdited = (it.id == listItem.id))}
-//                        }, onDeleteIconClickP = {
-//                            shopListItems = shopListItems - listItem
-////                            Toast.makeText(
-////                                LocalContext.current,
-////                                "${listItem.name} deleted from the list",
-////                                Toast.LENGTH_SHORT
-////                            ).show()
-//
-//                        })
-//                    }
-//                }
-
-
-//                                        if(!alreadyExistingItem){
-//                                            shopListItems = shopListItems + ShoppingListItem(
-//                                            id = (shopListItems.maxOfOrNull { it.id } ?: 0) + 1,
-//                                            name = alertDItemName,
-//                                            quantity = alertDItemQty)
-//                                            Log.i("Item addition", "New Item added to List")
-//                                            //[ALTERNATIVE]
-////                                            shopListItems.add(
-////                                                ShoppingListItem(
-////                                                    id = (shopListItems.maxOfOrNull { it.id } ?: 0) + 1,
-////                                                    name = alertDItemName,
-////                                                    quantity = alertDItemQty))
-//                                            Toast.makeText(
-//                                                LocalContext.current,
-//                                                "$alertDItemName with a quantity of $alertDItemQty added to the shopping list",
-//                                                Toast.LENGTH_LONG
-//                                            ).show()
-
         }
-        if(shoppingListUiState.newItemDialogState.isDialogDisplayed){
-            NewItemDialog(
-                dialogState = shoppingListUiState.newItemDialogState,
-                dialogController = shoppingListViewModel.newItemDialogController
-            )
-        }
-
+    if(shoppingListUiState.newItemDialogState.isDialogDisplayed){
+        NewItemDialog(
+            dialogState = shoppingListUiState.newItemDialogState,
+            dialogController = shoppingListViewModel.newItemDialogController
+        )
     }
-//}
+
+}
 
 
 @Composable
 fun ShoppingList(
     modifier: Modifier = Modifier,
+    listItemViewController: ListItemViewController,
     items: List<ShoppingListItem>,
 ){
+    val smallPadding = dimensionResource(R.dimen.padding_small)
     LazyColumn(
         modifier = Modifier
             .padding(16.dp)
+            .then(modifier),
+        verticalArrangement = Arrangement.spacedBy(smallPadding)
     ) {
         items(items = items) { listItem -> //if left as 'it' without that line, it shadows the implicit params of the inner lambda
-            ShoppingListItem(listItem = listItem)
+            ShoppingListItem(
+                listItemViewController = listItemViewController,
+                item = listItem)
         }
     }
 }
 
 @Composable
 fun ShoppingListItem(
-    modifier: Modifier = Modifier,
-    listItem: ShoppingListItem
+    listItemViewController: ListItemViewController,
+    item: ShoppingListItem
 ){
-    if (listItem.isCurrentlyEdited) {
-        ShoppingListItemEditor(
-            currContext = LocalContext.current,
-            item = listItem)
-//            onEditComplete = { })
-////        editedItemName, editedItemQuantity ->
-////                shopListItems = shopListItems.map { it.copy(isCurrentlyEdited = false) }
-////                val editedItem = shopListItems.find { it.id == listItem.id }
-////                editedItem?.let {
-////                    it.name = editedItemName
-////                    it.quantity = editedItemQuantity
-////                }
-////            })
-      } else {
-         ShoppingListItemView(item = listItem, onEditIconClick = {}, onDeleteIconClick = {})
-////            shopListItems =
-////                shopListItems.map { it.copy(isCurrentlyEdited = (it.id == listItem.id)) }
-////        }, onDeleteIconClickP = {
-////            shopListItems = shopListItems - listItem
-//////                            Toast.makeText(
-//////                                LocalContext.current,
-//////                                "${listItem.name} deleted from the list",
-//////                                Toast.LENGTH_SHORT
-//////                            ).show()
-//
-////        })
+    Card(
+        shape = RectangleShape,
+        elevation = CardDefaults.elevatedCardElevation(
+            defaultElevation = 6.dp,
+            pressedElevation = 6.dp,
+            focusedElevation = 6.dp,
+            hoveredElevation = 6.dp,
+            disabledElevation = 6.dp
+        )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            Text(
+                text = item.name,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .weight(1f) //This composable will take only the remaining space after fixed-size elements are placed.
+            )
+            IconButton(
+                onClick = { listItemViewController.decreaseItemQty(item) })  {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_subtract_24),
+                    contentDescription = stringResource(R.string.item_view_desc_icon_subtract))
+            }
+            Box(
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.surface)
+                    .padding(8.dp)
+                    .wrapContentSize()
+            ){
+                BasicTextField(
+                    value = item.quantity,
+                    onValueChange = {  },
+                    singleLine = true,
+                    modifier = Modifier
+                        .width(IntrinsicSize.Min),
+                    readOnly = true
+                )
+            }
+            IconButton(
+                onClick = { listItemViewController.increaseItemQty(item) })  {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = stringResource(R.string.item_view_desc_icon_add))
+            }
+            IconButton(
+                onClick = { listItemViewController.removeItem(item) })  {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = stringResource(R.string.item_view_desc_icon_delete))
+            }
+
+        }
     }
 }
 
@@ -295,92 +256,6 @@ fun NewItemDialog(
             }
         }
     }
-}
-
-@Composable
-fun ShoppingListItemView(
-    item: ShoppingListItem,
-    onEditIconClick: () -> Unit,
-    onDeleteIconClick: () -> Unit
-){
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-            .border(
-                border = BorderStroke(2.dp, Color.DarkGray),
-                shape = RoundedCornerShape(20)),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ){
-        Text(text = item.name, modifier = Modifier.padding(8.dp))
-        Text(text = "Qty: ${item.quantity}", modifier = Modifier.padding(8.dp))
-        Row(modifier = Modifier.padding(8.dp)){
-            IconButton(onClick = onEditIconClick)  {
-                Icon(imageVector = Icons.Default.Edit, contentDescription = "Edit")
-            }
-            IconButton(onClick = onDeleteIconClick)  {
-                Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete")
-            }
-        }
-    }
-}
-
-@Composable
-fun ShoppingListItemEditor(
-    currContext: Context,
-    item: ShoppingListItem,
-//    onEditComplete: (String, String) -> Unit
-){
-    var editedName by remember { mutableStateOf(item.name) }
-    var editedQuantity by remember { mutableStateOf(item.quantity) }
-    var isCurrentlyEdited by remember { mutableStateOf(item.isCurrentlyEdited) }
-
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .background(Color.White)
-        .padding(8.dp),
-        horizontalArrangement = Arrangement.SpaceEvenly){
-            Column {
-                BasicTextField(
-                    value = editedName,
-                    onValueChange = {editedName = it},
-                    singleLine = true,
-                    modifier = Modifier.wrapContentSize().padding(8.dp)
-                )
-
-                BasicTextField(
-                    value = editedQuantity,
-                    onValueChange = {
-                        editedQuantity = if((it.toIntOrNull() ?: 0) == 0) "" else it},
-                    singleLine = true,
-                    modifier = Modifier.wrapContentSize().padding(8.dp)
-                )
-            }
-
-            CustomCentralButton(
-                text = "Save",
-                onClick = {
-                    if(editedName.isBlank()) {
-                        Toast.makeText(
-                            currContext,
-                            "Fill the item's name",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    else if(editedQuantity.isBlank()) {
-                        Toast.makeText(
-                            currContext,
-                            "Fill the item's quantity",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    else{
-                        isCurrentlyEdited = false
-//                        onEditComplete(editedName, editedQuantity)
-                    }
-                })
-
-        }
 }
 
 

@@ -27,29 +27,40 @@ class NewItemDialogController(
     }
 
     fun checkFilledValues(){
-        val isNameInputInvalid = (dialogItemName.isBlank())
-        val isQtyInputInvalid = (dialogItemQty.isBlank())
         updateShoppingListUiState{ current ->
-            current.copy(newItemDialogState = current.newItemDialogState.copy(
+            val isNameEmpty = dialogItemName.isBlank()
+            val isNameOnTheList = current.shoppingListItemsState.shoppingListItems.any {
+                it.name.equals(dialogItemName, ignoreCase = true)}
+            val isNameInputInvalid = isNameEmpty || isNameOnTheList
+            val isQtyEmpty = dialogItemQty.isBlank()
+            val isQtyInputInvalid = dialogItemQty.isBlank()
+            val shouldAddItem = !isNameInputInvalid && !isQtyInputInvalid
+
+            val newIDialogState = current.newItemDialogState.copy(
                 isItemNameInputInvalid = isNameInputInvalid,
-                isItemNameEmpty = dialogItemName.isBlank(),
-                isItemAlreadyOnTheList = false,
-                isItemQtyInputInvalid = isQtyInputInvalid,
-                isItemQtyEmpty = dialogItemQty.isBlank())
+                isItemNameEmpty = isNameEmpty,
+                isItemAlreadyOnTheList = isNameOnTheList,
+                isItemQtyInputInvalid = isQtyEmpty,
+                isItemQtyEmpty = isQtyEmpty
             )
-        }
-        if(!isNameInputInvalid && !isQtyInputInvalid){
-            updateShoppingListUiState{ current ->
-                current.copy(shoppingListItemsState = current.shoppingListItemsState.copy(
+
+            val newSListItemsState = if(shouldAddItem){
+                current.shoppingListItemsState.copy(
                     shoppingListItems = current.shoppingListItemsState.shoppingListItems + ShoppingListItem(
                         id = (current.shoppingListItemsState.shoppingListItems.maxOfOrNull { it.id } ?: 0) + 1,
                         name = dialogItemName,
-                        quantity = dialogItemQty)
-                    )
-                )
+                        quantity = dialogItemQty))
             }
-            updateDialogItemName("")
-            updateDialogItemQty("")
+            else
+                current.shoppingListItemsState
+
+            if(shouldAddItem){
+                updateDialogItemName("")    //we have copied these properties' values, so we can reset them now
+                updateDialogItemQty("")
+            }
+
+            current.copy(newItemDialogState = newIDialogState,
+                shoppingListItemsState = newSListItemsState)
         }
     }
 }
