@@ -34,33 +34,23 @@ A simple Android app that allows users to create a list of items, edit each item
 </div>
 
 <div style="text-align: center; margin-bottom: 20px;">
-  <div><strong>Filled Add Item Alert</strong></div>
-  <img src="demoImages/screenshot2.png" alt="Filled Add Item Alert" width="200"/>
-</div>
-
-<div style="text-align: center; margin-bottom: 20px;">
-  <div><strong>Added item message</strong></div>
-  <img src="demoImages/screenshot3.png" alt="Added item message" width="200"/>
+  <div><strong>Add Item Dialog</strong></div>
+  <img src="demoImages/screenshot2.png" alt="Add Item Dialog" width="200"/>
 </div>
 
 <div style="text-align: center; margin-bottom: 20px;">
   <div><strong>Items list</strong></div>
-  <img src="demoImages/screenshot4.png" alt="Items list" width="200"/>
+  <img src="demoImages/screenshot3.png" alt="Items list" width="200"/>
 </div>
 
 <div style="text-align: center; margin-bottom: 20px;">
-  <div><strong>Editing an existing item</strong></div>
-  <img src="demoImages/screenshot5.png" alt="Editing an existing item" width="200"/>
+  <div><strong>Edited item quantities</strong></div>
+  <img src="demoImages/screenshot4.png" alt="Edited item quantities" width="200"/>
 </div>
 
 <div style="text-align: center; margin-bottom: 20px;">
-  <div><strong>Updated list with edited item</strong></div>
-  <img src="demoImages/screenshot6.png" alt="Updated list with edited item" width="200"/>
-</div>
-
-<div style="text-align: center; margin-bottom: 20px;">
-  <div><strong>Deleting an item</strong></div>
-  <img src="demoImages/screenshot7.png" alt="Deleting an item" width="200"/>
+  <div><strong>Deleted item</strong></div>
+  <img src="demoImages/screenshot5.png" alt="Deleted item" width="200"/>
 </div>
 
 ---
