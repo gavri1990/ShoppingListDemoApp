@@ -35,12 +35,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.shoppinglist.R
@@ -147,13 +149,10 @@ fun ShoppingListItem(
                     .padding(8.dp)
                     .wrapContentSize()
             ){
-                BasicTextField(
-                    value = item.quantity,
-                    onValueChange = {  },
-                    singleLine = true,
-                    modifier = Modifier
-                        .width(IntrinsicSize.Min),
-                    readOnly = true
+                Text(
+                    text = item.quantity,
+                    fontSize = 14.sp,
+                    lineHeight = 14.sp
                 )
             }
             IconButton(

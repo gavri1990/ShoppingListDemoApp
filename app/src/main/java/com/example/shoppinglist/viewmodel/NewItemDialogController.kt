@@ -18,7 +18,13 @@ class NewItemDialogController(
     }
 
     fun updateDialogItemQty(itemQty: String){
-        dialogItemQty = if((itemQty.toIntOrNull() ?: 0) == 0) "" else itemQty   //characters or 0 not allowed. A completely empty value (user presses backspace key) will also give 0, so again alertDItemQty = ""
+        // Ignore non-numeric input always and initial zero when field is empty. An blank input does not get ignored, so that the textfield can be cleared
+        val inputQtyToIntOrNull = itemQty.toIntOrNull()
+        val isInputQtyEmpty = itemQty.isEmpty()
+        val isTextFieldEmpty = dialogItemQty.isEmpty()
+        val shouldIgnoreInputQty = (!isInputQtyEmpty && inputQtyToIntOrNull == null) || (isTextFieldEmpty && inputQtyToIntOrNull == 0)
+        if (!shouldIgnoreInputQty)
+            dialogItemQty = itemQty
     }
 
     fun updateDialogDisplayed(isDisplayed: Boolean){
