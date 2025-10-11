@@ -1,27 +1,28 @@
 ## 📱 Shopping List Demo App
 
-A simple Android app that allows users to create a list of items and simultaneously edit or delete each one. Built by following a video tutorial and adding personal touches to optimize the reference code. The project emphasizes learning and experimentation, with all logic currently housed in `HomeItemCard.kt`.
+A simple Android app that allows users to create a list of items, edit each item's quantity or delete it from the list. Originally built by following a video tutorial, then enhanced with personal touches and a modular MVVM architecture.
 
 ---
 
 ### 🚀 Features
 
 - Add items to a shopping list
-- Edit item details inline
+- Updat the initial quantity
 - Delete items instantly
 - Real-time UI updates using Jetpack Compose
-- Lightweight and beginner-friendly architecture
+- MVVM architecture with modular controllers
+- Clean separation of UI, state, and logic
 
 ---
 
 ### 🛠️ Tech Stack
 
-| Tool / Library                | Purpose                             |
-|-------------------------------|-------------------------------------|
-| Kotlin                        | Core programming language           |
-| Jetpack Compose               | Declarative UI framework            |
-| Android Studio                | Development environment             |
-| `mutableStateOf` + `remember` | State management within composables |
+| Tool / Library    | Purpose                    |
+|-------------------|----------------------------|
+| Kotlin            | Core programming language  |
+| Jetpack Compose   | Declarative UI framework   |
+| Android Studio    | Development environment    |
+| MVVM              | Architecture pattern       |
 
 ---
 
@@ -76,7 +77,7 @@ Open the project in **Android Studio**, build, and run on an emulator or device.
 
 ### 🧪 Status
 
-This project is a learning sandbox and not yet production-ready. All logic is centralized in `HomeItemCard.kt` for simplicity and experimentation.
+This project is a learning sandbox and not yet production-ready. The architecture now follows MVVM principles, with UI logic separated into composables, state managed via a ViewModel, and sub-controllers handling specific screen responsibilities.
 
 ---
 
