@@ -7,7 +7,7 @@ A simple Android app that allows users to create a list of items, edit each item
 ### 🚀 Features
 
 - Add items to a shopping list
-- Updat the initial quantity
+- Update the initial quantity
 - Delete items instantly
 - Real-time UI updates using Jetpack Compose
 - MVVM architecture with modular controllers
