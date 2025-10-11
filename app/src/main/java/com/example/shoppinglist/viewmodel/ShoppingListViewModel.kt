@@ -1,9 +1,6 @@
 package com.example.shoppinglist.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.shoppinglist.ui.shoppinglist.ListItemViewController
-import com.example.shoppinglist.ui.shoppinglist.NewItemDialogController
-import com.example.shoppinglist.ui.shoppinglist.ShoppingListUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,9 +17,4 @@ class ShoppingListViewModel: ViewModel() {
     val listItemViewController = ListItemViewController{transform ->
         _uiState.update(transform)
     }
-
-//    val listItemEditorController = ListItemEditorController{
-//    transform ->
-//        _uiState.update(transform)
-//    }
 }

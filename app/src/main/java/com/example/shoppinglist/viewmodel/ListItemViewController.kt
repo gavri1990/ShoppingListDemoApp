@@ -1,4 +1,6 @@
-package com.example.shoppinglist.ui.shoppinglist
+package com.example.shoppinglist.viewmodel
+
+import com.example.shoppinglist.model.ShoppingListItem
 
 class ListItemViewController(
     private val updateShoppingListUiState: ((ShoppingListUiState) -> ShoppingListUiState) -> Unit) {

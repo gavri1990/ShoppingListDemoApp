@@ -1,4 +1,4 @@
-package com.example.shoppinglist.ui.shoppinglist
+package com.example.shoppinglist.model
 
 data class ShoppingListItem(val id: Int,
                             var name: String,

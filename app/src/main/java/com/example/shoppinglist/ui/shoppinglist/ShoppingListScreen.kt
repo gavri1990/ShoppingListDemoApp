@@ -28,16 +28,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.dimensionResource
@@ -49,7 +44,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.shoppinglist.R
+import com.example.shoppinglist.model.ShoppingListItem
 import com.example.shoppinglist.ui.theme.ShoppingListTheme
+import com.example.shoppinglist.viewmodel.ListItemViewController
+import com.example.shoppinglist.viewmodel.NewItemDialogController
+import com.example.shoppinglist.viewmodel.NewItemDialogState
 import com.example.shoppinglist.viewmodel.ShoppingListViewModel
 
 
@@ -70,7 +69,6 @@ fun ShoppingListScreen(
             CustomCentralButton(
                 text = stringResource(R.string.btn_add_items),
                 onClick = { shoppingListViewModel.newItemDialogController.updateDialogDisplayed(true) })
-
         }
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -78,14 +76,13 @@ fun ShoppingListScreen(
             listItemViewController = shoppingListViewModel.listItemViewController,
             items = shoppingListUiState.shoppingListItemsState.shoppingListItems
         )
-        }
+    }
     if(shoppingListUiState.newItemDialogState.isDialogDisplayed){
         NewItemDialog(
             dialogState = shoppingListUiState.newItemDialogState,
             dialogController = shoppingListViewModel.newItemDialogController
         )
     }
-
 }
 
 

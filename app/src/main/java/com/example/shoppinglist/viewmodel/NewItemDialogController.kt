@@ -1,8 +1,9 @@
-package com.example.shoppinglist.ui.shoppinglist
+package com.example.shoppinglist.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.example.shoppinglist.model.ShoppingListItem
 
 class NewItemDialogController(
     private val updateShoppingListUiState: ((ShoppingListUiState) -> ShoppingListUiState) -> Unit) {
@@ -40,7 +41,7 @@ class NewItemDialogController(
                 isItemNameInputInvalid = isNameInputInvalid,
                 isItemNameEmpty = isNameEmpty,
                 isItemAlreadyOnTheList = isNameOnTheList,
-                isItemQtyInputInvalid = isQtyEmpty,
+                isItemQtyInputInvalid = isQtyInputInvalid,
                 isItemQtyEmpty = isQtyEmpty
             )
 
@@ -59,8 +60,10 @@ class NewItemDialogController(
                 updateDialogItemQty("")
             }
 
-            current.copy(newItemDialogState = newIDialogState,
-                shoppingListItemsState = newSListItemsState)
+            current.copy(
+                newItemDialogState = newIDialogState,
+                shoppingListItemsState = newSListItemsState
+            )
         }
     }
 }
