@@ -1,6 +1,6 @@
 ## 📱 Shopping List Demo App
 
-A simple Android app that allows users to create a list of items, edit each item's quantity or delete it from the list. Originally built by following a video tutorial, then enhanced with personal touches and a modular MVVM architecture. Now includes local data persistence using Room Database.
+A simple Android app that allows users to create a list of items, edit each item's quantity or delete it from the list. Originally built by following a video tutorial, then enhanced with personal touches and a modular MVVM architecture. Now includes local data persistence using Room Database and dependency injection with Dagger Hilt.
 
 ---
 
@@ -13,6 +13,7 @@ A simple Android app that allows users to create a list of items, edit each item
 - MVVM architecture with modular controllers
 - Clean separation of UI, state, and logic
 - Local data persistence with Room Database
+- Dependency injection powered by Dagger Hilt
 
 
 ---
@@ -26,6 +27,7 @@ A simple Android app that allows users to create a list of items, edit each item
 | Android Studio    | Development environment         |
 | MVVM              | Architecture pattern            |
 | Room              | Local database for persistence  |
+| Dagger Hilt       | Dependency injection framework  |
 
 ---
 
@@ -70,7 +72,7 @@ Open the project in **Android Studio**, build, and run on an emulator or device.
 
 ### 🧪 Status
 
-This project is a learning sandbox and not yet production-ready. The architecture follows MVVM principles, with UI logic separated into composables, state managed via a ViewModel, and sub-controllers handling specific screen responsibilities. Room is used to persist shopping list data across app restarts.
+This project is a learning sandbox and not yet production-ready. The architecture follows MVVM principles, with UI logic separated into composables, state managed via a ViewModel, and sub-controllers handling specific screen responsibilities. Room is used to persist shopping list data across app restarts. Dagger Hilt is used for clean and scalable dependency injection across modules.
 
 ---
 
