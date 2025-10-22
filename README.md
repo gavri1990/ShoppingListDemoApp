@@ -70,7 +70,7 @@ Open the project in **Android Studio**, build, and run on an emulator or device.
 
 ### 🧪 Status
 
-This project is a learning sandbox and not yet production-ready. The architecture now follows MVVM principles, with UI logic separated into composables, state managed via a ViewModel, and sub-controllers handling specific screen responsibilities. Room is used to persist shopping list data across app restarts.
+This project is a learning sandbox and not yet production-ready. The architecture follows MVVM principles, with UI logic separated into composables, state managed via a ViewModel, and sub-controllers handling specific screen responsibilities. Room is used to persist shopping list data across app restarts.
 
 ---
 
