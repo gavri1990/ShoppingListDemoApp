@@ -3,10 +3,11 @@ package com.example.shoppinglist.viewmodel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.example.shoppinglist.model.ShoppingListItem
+import com.example.shoppinglist.data.entity.ShoppingListItem
 
 class NewItemDialogController(
-    private val updateShoppingListUiState: ((ShoppingListUiState) -> ShoppingListUiState) -> Unit) {
+    private val updateShoppingListUiState: ((ShoppingListUiState) -> ShoppingListUiState) -> Unit,
+    private val insertItemToDb: (ShoppingListItem) -> Unit) {
     var dialogItemName by mutableStateOf("")
         private set
 
@@ -51,24 +52,17 @@ class NewItemDialogController(
                 isItemQtyEmpty = isQtyEmpty
             )
 
-            val newSListItemsState = if(shouldAddItem){
-                current.shoppingListItemsState.copy(
-                    shoppingListItems = current.shoppingListItemsState.shoppingListItems + ShoppingListItem(
-                        id = (current.shoppingListItemsState.shoppingListItems.maxOfOrNull { it.id } ?: 0) + 1,
-                        name = dialogItemName,
-                        quantity = dialogItemQty))
-            }
-            else
-                current.shoppingListItemsState
-
             if(shouldAddItem){
+                val newItem = ShoppingListItem(
+                    name = dialogItemName,
+                    quantity = dialogItemQty)
+                insertItemToDb(newItem)
                 updateDialogItemName("")    //we have copied these properties' values, so we can reset them now
                 updateDialogItemQty("")
             }
 
             current.copy(
-                newItemDialogState = newIDialogState,
-                shoppingListItemsState = newSListItemsState
+                newItemDialogState = newIDialogState
             )
         }
     }

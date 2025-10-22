@@ -10,7 +10,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.example.shoppinglist.ui.theme.ShoppingListTheme
 import com.example.shoppinglist.ui.shoppinglist.ShoppingListScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint  //Hilt hooks into the Android component lifecycle to inject dependencies
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

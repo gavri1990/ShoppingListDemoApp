@@ -4,18 +4,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -35,7 +32,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -44,9 +40,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.shoppinglist.R
-import com.example.shoppinglist.model.ShoppingListItem
+import com.example.shoppinglist.data.entity.ShoppingListItem
 import com.example.shoppinglist.ui.theme.ShoppingListTheme
 import com.example.shoppinglist.viewmodel.ListItemViewController
 import com.example.shoppinglist.viewmodel.NewItemDialogController
@@ -57,7 +54,7 @@ import com.example.shoppinglist.viewmodel.ShoppingListViewModel
 @Composable
 fun ShoppingListScreen(
     modifier: Modifier = Modifier,
-    shoppingListViewModel: ShoppingListViewModel = viewModel()
+    shoppingListViewModel: ShoppingListViewModel = hiltViewModel<ShoppingListViewModel>()
 ){
     val shoppingListUiState by shoppingListViewModel.uiState.collectAsState()
 
@@ -158,13 +155,13 @@ fun ShoppingListItem(
             IconButton(
                 onClick = { listItemViewController.increaseItemQty(item) })  {
                 Icon(
-                    imageVector = Icons.Default.Add,
+                    imageVector = Icons.Filled.Add,
                     contentDescription = stringResource(R.string.item_view_desc_icon_add))
             }
             IconButton(
                 onClick = { listItemViewController.removeItem(item) })  {
                 Icon(
-                    imageVector = Icons.Default.Delete,
+                    imageVector = Icons.Filled.Delete,
                     contentDescription = stringResource(R.string.item_view_desc_icon_delete))
             }
 

@@ -1,6 +1,6 @@
 package com.example.shoppinglist.viewmodel
 
-import com.example.shoppinglist.model.ShoppingListItem
+import com.example.shoppinglist.data.entity.ShoppingListItem
 
 data class ShoppingListUiState(
     val newItemDialogState: NewItemDialogState = NewItemDialogState(),
@@ -17,5 +17,5 @@ data class NewItemDialogState(
 )
 
 data class ShoppingListItemsState(
-    val shoppingListItems: List<ShoppingListItem> = listOf()
+    val shoppingListItems: List<ShoppingListItem> = emptyList()
 )
