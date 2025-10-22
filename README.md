@@ -1,6 +1,6 @@
 ## 📱 Shopping List Demo App
 
-A simple Android app that allows users to create a list of items, edit each item's quantity or delete it from the list. Originally built by following a video tutorial, then enhanced with personal touches and a modular MVVM architecture.
+A simple Android app that allows users to create a list of items, edit each item's quantity or delete it from the list. Originally built by following a video tutorial, then enhanced with personal touches and a modular MVVM architecture. Now includes local data persistence using Room Database.
 
 ---
 
@@ -12,17 +12,20 @@ A simple Android app that allows users to create a list of items, edit each item
 - Real-time UI updates using Jetpack Compose
 - MVVM architecture with modular controllers
 - Clean separation of UI, state, and logic
+- Local data persistence with Room Database
+
 
 ---
 
 ### 🛠️ Tech Stack
 
-| Tool / Library    | Purpose                    |
-|-------------------|----------------------------|
-| Kotlin            | Core programming language  |
-| Jetpack Compose   | Declarative UI framework   |
-| Android Studio    | Development environment    |
-| MVVM              | Architecture pattern       |
+| Tool / Library    | Purpose                         |
+|-------------------|---------------------------------|
+| Kotlin            | Core programming language       |
+| Jetpack Compose   | Declarative UI framework        |
+| Android Studio    | Development environment         |
+| MVVM              | Architecture pattern            |
+| Room              | Local database for persistence  |
 
 ---
 
@@ -67,7 +70,7 @@ Open the project in **Android Studio**, build, and run on an emulator or device.
 
 ### 🧪 Status
 
-This project is a learning sandbox and not yet production-ready. The architecture now follows MVVM principles, with UI logic separated into composables, state managed via a ViewModel, and sub-controllers handling specific screen responsibilities.
+This project is a learning sandbox and not yet production-ready. The architecture now follows MVVM principles, with UI logic separated into composables, state managed via a ViewModel, and sub-controllers handling specific screen responsibilities. Room is used to persist shopping list data across app restarts.
 
 ---
 
